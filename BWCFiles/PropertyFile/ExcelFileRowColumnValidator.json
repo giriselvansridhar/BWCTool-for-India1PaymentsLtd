@@ -1,0 +1,65 @@
+{
+    "banks": [
+        {
+            "FileName": "IDFC CA",
+            "HeadingRowNo": 2,
+            "Date": "Payment date",
+            "DebitAmount": "Debit",
+            "CreditAmount": "Credit",
+            "Remarks": "Remarks",
+            "CrDrSeparator": false,
+            "CrDrSeparatorColName": "No"
+        },
+        {
+            "FileName": "HDFC CA",
+            "HeadingRowNo": 2,
+            "Date": "Payment date",
+            "DebitAmount": "Debit",
+            "CreditAmount": "Credit",
+            "Remarks": "Remarks",
+            "CrDrSeparator": false,
+            "CrDrSeparatorColName": "No"
+        },
+        {
+
+            "FileName": "IND CA",
+            "HeadingRowNo": 2,
+            "Date": "Payment date",
+            "DebitAmount": "Debit",
+            "CreditAmount": "Credit",
+            "Remarks": "Remarks",
+            "CrDrSeparator": false,
+            "CrDrSeparatorColName": "No"
+        },
+
+        {
+
+            "FileName": "SBI_FR",
+            "HeadingRowNo": 2,
+            "Date": "Payment date",
+            "DebitAmount": "Debit",
+            "CreditAmount": "Credit",
+            "Remarks": "Remarks",
+            "CrDrSeparator": false,
+            "CrDrSeparatorColName": "No"
+        },
+
+        {
+
+            "FileName": "Axis_CA",
+            "HeadingRowNo": 2,
+            "Date": "Transaction Date",
+            "DebitAmount": "Transaction Amount(INR)",
+            "CreditAmount": "Transaction Amount(INR)",
+            "Remarks": "Remarks",
+            "CrDrSeparator": true,
+            "CrDrSeparatorColName": "Dr/Cr"
+        }
+
+
+        
+
+
+
+    ]
+}

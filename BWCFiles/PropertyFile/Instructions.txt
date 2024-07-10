@@ -1,0 +1,53 @@
+
+India1 Payments Ltd.
+Terms and Conditions
+
+Introduction
+
+Welcome to India1 Payments Ltd.! We are delighted to have you on board. This document outlines the terms and conditions governing your use of our services. Please read these terms carefully to understand your rights and obligations when using our platform.
+
+1. Definitions
+
+India1 Payments Ltd.: Refers to the company providing payment services.
+User: Any individual or entity using our services.
+Services: Payment processing and related services offered by India1 Payments Ltd.
+Developer Giriselvan: Refers to the developer associated with the creation and maintenance of our technological infrastructure.
+2. Scope
+
+These terms and conditions apply to all users of India1 Payments Ltd., including but not limited to developers like Giriselvan who contribute to our technological ecosystem.
+
+3. Developer Responsibilities
+
+Integration: Developers like Giriselvan must integrate our payment solutions in accordance with our guidelines and documentation.
+Compliance: Ensure compliance with all applicable laws and regulations in the development and use of our services.
+Security: Implement robust security measures to protect user data and prevent unauthorized access.
+Support: Provide timely support and maintenance for integrated solutions.
+4. Intellectual Property
+
+Ownership: India1 Payments Ltd. retains all rights, title, and interest in our platform, including intellectual property rights.
+License: Developers are granted a limited, non-exclusive license to use our APIs and services solely for integration purposes.
+5. Data Protection
+
+Confidentiality: Developers must maintain the confidentiality of any user data collected or processed through our services.
+Use of Data: Use of data must comply with our privacy policy and applicable data protection laws.
+6. Liability
+
+Limitation: India1 Payments Ltd. shall not be liable for any indirect, incidental, or consequential damages arising out of the use of our services.
+Indemnification: Developers agree to indemnify and hold India1 Payments Ltd. harmless from any claims, losses, or damages resulting from their breach of these terms.
+7. Amendments
+
+India1 Payments Ltd. reserves the right to update or modify these terms and conditions at any time. Developers will be notified of any changes, and continued use of our services constitutes acceptance of the revised terms.
+
+8. Contact Information
+
+For questions or concerns regarding these terms and conditions, please contact us at:
+
+India1 Payments Ltd.
+[Contact Information]
+
+Conclusion
+
+By using India1 Payments Ltd. services, developers like Giriselvan acknowledge and agree to these terms and conditions. We appreciate your cooperation in ensuring a secure and efficient payment experience for all users.
+
+Effective Date: [Date]
+

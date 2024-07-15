@@ -87,19 +87,23 @@ def GetTotalCreditAmount(fileDetails, fileName, prop_reader):
         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
         inputRemarks = fileDetails[prop_reader.getRemarks()].unique()
         inputDates = fileDetails[prop_reader.getDate()].unique()
-        results = []
 
+        results = []
         for date in inputDates:
             filtered_by_date = fileDetails[fileDetails[prop_reader.getDate()] == date]
             for remark in inputRemarks:
                 filtered_by_remark = filtered_by_date[filtered_by_date[prop_reader.getRemarks()] == remark]
-                
-                creditsum = filtered_by_remark.loc[
-                    filtered_by_remark[prop_reader.getCrDrSeparatorColName()] == "CR", 
-                    prop_reader.getDebitAmount()
-                ].astype(float).sum()
-                
-                results.append([date, remark, creditsum])
+                # print("filtered_by_remark",filtered_by_remark.columns )
+                col_seperator = prop_reader.getCrDrSeparatorColName()
+                # print("col_seperator",col_seperator )
+                filtered_by_DrSeperator = filtered_by_remark[filtered_by_remark[col_seperator]== "CR" ]                
+                if not filtered_by_DrSeperator.empty:
+                    # print("filtered_by_DrSeperator", filtered_by_DrSeperator)
+                    debitsum = filtered_by_DrSeperator[prop_reader.getDebitAmount()].sum()
+                    results.append([date, remark, debitsum])
+
+                    
+                    
     
     else:
         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
@@ -127,20 +131,22 @@ def GetTotalDebitAmount(fileDetails, fileName, prop_reader):
         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
         inputRemarks = fileDetails[prop_reader.getRemarks()].unique()
         inputDates = fileDetails[prop_reader.getDate()].unique()
-        results = []
 
+        results = []
         for date in inputDates:
             filtered_by_date = fileDetails[fileDetails[prop_reader.getDate()] == date]
             for remark in inputRemarks:
                 filtered_by_remark = filtered_by_date[filtered_by_date[prop_reader.getRemarks()] == remark]
-                
-                debitsum = filtered_by_remark.loc[
-                    filtered_by_remark[prop_reader.getCrDrSeparatorColName()] == "DR", 
-                    prop_reader.getDebitAmount()
-                ].astype(float).sum()
-                
-                results.append([date, remark, debitsum])
-                print(results)
+                # print("filtered_by_remark",filtered_by_remark.columns )
+                col_seperator = prop_reader.getCrDrSeparatorColName()
+                # print("col_seperator",col_seperator )
+                filtered_by_DrSeperator = filtered_by_remark[filtered_by_remark[col_seperator]== "DR" ]                
+                if not filtered_by_DrSeperator.empty:
+                    # print("filtered_by_DrSeperator", filtered_by_DrSeperator)
+                    debitsum = filtered_by_DrSeperator[prop_reader.getDebitAmount()].sum()
+                    
+                    results.append([date, remark, debitsum])
+            
     
     else:
         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
@@ -159,87 +165,19 @@ def GetTotalDebitAmount(fileDetails, fileName, prop_reader):
     
     return results
 
-
-
-    
-       
-
-
-
-
-
-
-
-        
-        
-        
-
-    
-
-# def GetTotalDebitAmount(fileDetails, fileName, prop_reader):
-
-    
-#     # Convert the 'Payment date' from Excel serial date number to datetime if not already
-#     if fileDetails[prop_reader.getDate()].dtype != '<M8[ns]':  # Check if not already datetime
-#         fileDetails[prop_reader.getDate()] = pd.to_datetime('1899-12-30') + pd.to_timedelta(fileDetails['Payment date'], unit='D')
-#     if prop_reader.getCrDrSeparator():
-#         print("Hello")
-#         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
-#         inputRemarks = fileDetails[prop_reader.getRemarks()].unique()
-#         inputDates = fileDetails[prop_reader.getDate()].unique()
-#         results = []
-        
-#         for date in inputDates:
-#             filtered_by_date = fileDetails[fileDetails[prop_reader.getDate()] == date]
-#             for remark in inputRemarks:
-#                 debitsum = filtered_by_date.loc[(filtered_by_date[prop_reader.getRemarks()] == remark) & (filtered_by_date[prop_reader.getCreditAmount()] == "DR"), prop_reader.getDebitAmount()].sum()
-#                 results.append([date, remark, debitsum])
-        
-    
-
-
-#     else:
-# # Sort the DataFrame by 'Payment date'
-#         fileDetails = fileDetails.sort_values(by=prop_reader.getDate())
-
-#     # Get unique remarks and dates
-#         inputRemarks = fileDetails[prop_reader.getRemarks()].unique()
-#         inputDates = fileDetails[prop_reader.getDate()].unique()
-
-#         results = []
-
-#     # Loop through each date
-#         for date in inputDates:
-        
-#             filtered_by_date = fileDetails[fileDetails[prop_reader.getDate()] == date]
-        
-#         # Loop through each remark
-#             for remark in inputRemarks:
-            
-
-#                 Debitsum = filtered_by_date.loc[filtered_by_date[prop_reader.getRemarks()] == remark, prop_reader.getDebitAmount()].sum()
-           
-#                 results.append([date,remark,Debitsum])
-
-
-    
-#     return results
-
-            
-
-
-
-
-        
         
 def RemarkTheHeadingCreditList(CreditsSumsLists,RemarksHeadingMapping,fileName):
     filename=fileName.split('.', 1)[0]
-    
-    
+    #print(filename)
     filtered_df = RemarksHeadingMapping[(RemarksHeadingMapping['BankName'] == filename) & (RemarksHeadingMapping['Transaction Type'] == 'CR')]
     
+    #print(filtered_df)
+
+
     # Create a mapping dictionary from dataframe Remarks to Heading
-    remarks_to_heading = dict(zip(RemarksHeadingMapping['Remarks'], RemarksHeadingMapping['Heading']))
+    remarks_to_heading = dict(zip(filtered_df['Remarks'], filtered_df['Heading']))
+    print(remarks_to_heading)
+
 
 
 # Create new nested list with both conditions
@@ -340,7 +278,7 @@ def RemarkTheHeadingDebitList(DebitsSumLists,RemarksHeadingMapping,fileName):
     
     
     filtered_df = RemarksHeadingMapping[(RemarksHeadingMapping['BankName'] == filename) & (RemarksHeadingMapping['Transaction Type'] == 'DR')]
-    remarks_to_heading = dict(zip(RemarksHeadingMapping['Remarks'], RemarksHeadingMapping['Heading']))
+    remarks_to_heading = dict(zip(filtered_df['Remarks'], filtered_df['Heading']))
 
 
 # Create new nested list with both conditions
@@ -412,7 +350,7 @@ def dump_to_pickle(data_list, file_name):
         # Dump data to pickle file
         with open(file_name, 'wb') as f:
             pickle.dump(data_list, f)
-        print(f"Data saved to {file_name}")
+        # print(f"Data saved to {file_name}")
     except Exception as e:
         print(f"Error saving to {file_name}: {e}")
 

@@ -160,7 +160,7 @@ class ConsolidationApp:
     def generate_consolidated_excel(self,nested_list, OutPutFilePath, Json_file_Codes_path):
 
         InwardsList = [
-    "Sweep Out",
+    "Sweep In",
     "Dis Movement In",
     "Inter Bank Trf",
     "MF Redemption",
@@ -174,7 +174,7 @@ class ConsolidationApp:
     "Settlement 2",
     "Settlement 3",
     "Settlement 4",
-    "NPCI Revenue\n(Incl Tax)",
+    "NPCI Revenue (Incl Tax)",
     "Other WLA Rev (incl Tax)",
     "MSP Rev (incl Tax)",
     "POS Rev (incl Tax)",
@@ -183,6 +183,7 @@ class ConsolidationApp:
     "Franchisee SD",
     "ATM Cash deposit",
     "Other Misc."
+
 ]
         
         OutwardsList = [
@@ -268,19 +269,20 @@ class ConsolidationApp:
 
 
         ClosingBalanace=[]
-        CrediSum=[]
-        DebitSum=[]
+        
         sum_debits=0
         sum_credits=0
-
-        
         OpenBalance = self.opening_balance   
         ClosingBalanace.append(OpenBalance) 
+
+        
         print(sorted_list)
         
         
 
         for date in list1:
+            CrediSum=[]
+            DebitSum=[]
         
             
             
@@ -307,8 +309,12 @@ class ConsolidationApp:
                          
                          
                          sum_debits = sum(value for key, value in i.items() if key[0] == 'Outwards')
-                         
                          sum_credits = sum(value for key, value in i.items() if key[0] == 'Inwards')
+
+                         CrediSum.append(sum_credits)
+                         DebitSum.append(sum_debits)
+
+
                          
                         
                          i[('Details','Opening Balance')]=ClosingBalanace[-1]
@@ -351,118 +357,6 @@ class ConsolidationApp:
             row+=1
 
 
-
-
-
-                     
-                    
-
-
-
-
-                
-                
-
-                
-                 
-                 
-                 
-                     
-                         
-                         
-           
-          
-                          
-                       
-                       
-                     
-                         
-                    #      
-                     
-            #     
-
-
-            # 
-            # row+=1
-            # df.loc[row+1]=pd.Series({"Date":""})  
-            # row+=1     
-
-
-                
-
-
-                             
-                
-                        
-
-                
-            
-
-              
-
-
-                        
-                        
-
-
-                    
-
-                        
-
-
-                        
-                    
-                    
-                    
-                    
-                    
-                
-
-            
-            
-
-
-        
-
-
-
-
-
-
-
-        # ClosingBalancelist = []
-        # for count, i in enumerate(sorted_list):
-        #     sum_debits = sum(value for key, value in i.items() if key[0] == 'Outwards')
-        #     sum_credits = sum(value for key, value in i.items() if key[0] == 'Inwards')
-
-        #     if count == 0:
-        #         OpenBalance = self.opening_balance
-        #         ClosingBalance = OpenBalance + sum_credits - sum_debits
-        #         ClosingBalancelist.append(ClosingBalance)
-        #         for item in nested_list:
-        #             if item[2] == i[('Details', 'Bank')]:
-        #                 i[("Details", "Purpose")] = item[0]
-        #                 i[("Details", "Type")] = item[1]
-        #                 i[("Details", "SAP Code")] = item[3]
-        #                 break
-        #         i[("Details", "Opening Balance")] = OpenBalance
-        #         i[("Working", "Closing Balance")] = ClosingBalance
-        #         df.loc[count + 1] = pd.Series(i)
-        #     else:
-        #         OpenBalance = ClosingBalancelist[-1]
-        #         ClosingBalance = OpenBalance + sum_credits - sum_debits
-        #         ClosingBalancelist.clear()
-        #         ClosingBalancelist.append(ClosingBalance)
-        #         i[("Details", "Opening Balance")] = OpenBalance
-        #         i[("Working", "Closing Balance")] = ClosingBalance
-        #         for item in nested_list:
-        #             if item[2] == i[('Details', 'Bank')]:
-        #                 i[("Details", "Purpose")] = item[0]
-        #                 i[("Details", "Type")] = item[1]
-        #                 i[("Details", "SAP Code")] = item[3]
-        #                 break
-        #         df.loc[count + 1] = pd.Series(i)
-
         df.to_excel(OutPutFilePath)
         self.style_excel(OutPutFilePath)
 
@@ -494,7 +388,7 @@ class ConsolidationApp:
                         max_height = len(str(cell.value))
                 except:
                     pass
-            ws.row_dimensions[row[0].row].height = max_height * 0.8
+            ws.row_dimensions[row[0].row].height = max_height * 0.9
 
         for row in ws.iter_rows():
             for cell in row:
@@ -557,7 +451,7 @@ class ConsolidationApp:
 def open_excel_file(file_path):
     try:
         os.startfile(file_path)
-        print(f"Opened Excel file: {file_path}")
+        # print(f"Opened Excel file: {file_path}")
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found.")
     except Exception as e:
@@ -567,6 +461,7 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = ConsolidationApp(root)
     root.mainloop()
+    print("Completed")
    
 
 
